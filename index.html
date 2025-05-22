@@ -12,24 +12,24 @@
 </head>
 <body>
   <h2>Optimized 12-Player Tennis Matchups</h2>
-  <p>Enter names for 6 men and 6 women:</p>
+  <p>Enter names for 6 men and 6 women (or leave as default):</p>
   <div>
     <strong>Men:</strong><br/>
-    <input id="Dan" placeholder="Dan" />
-    <input id="Ross" placeholder="Ross" />
-    <input id="Jonah" placeholder="Jonah" />
-    <input id="Nick" placeholder="Nick" />
-    <input id="Asaf" placeholder="Asaf" />
-    <input id="Billy" placeholder="Billy" />
+    <input id="Man1" placeholder="Man 1" />
+    <input id="Man2" placeholder="Man 2" />
+    <input id="Man3" placeholder="Man 3" />
+    <input id="Man4" placeholder="Man 4" />
+    <input id="Man5" placeholder="Man 5" />
+    <input id="Man6" placeholder="Man 6" />
   </div>
   <div>
     <strong>Women:</strong><br/>
-    <input id="Hannah" placeholder="Hannah" />
-    <input id="Wyoma" placeholder="Wyoma" />
-    <input id="Elene" placeholder="Elene" />
-    <input id="Eddie" placeholder="Eddie" />
-    <input id="Pam" placeholder="Pam" />
-    <input id="Caroline" placeholder="Caroline" />
+    <input id="Woman1" placeholder="Woman 1" />
+    <input id="Woman2" placeholder="Woman 2" />
+    <input id="Woman3" placeholder="Woman 3" />
+    <input id="Woman4" placeholder="Woman 4" />
+    <input id="Woman5" placeholder="Woman 5" />
+    <input id="Woman6" placeholder="Woman 6" />
   </div>
   <button onclick="generateSchedule()">Generate Matchups</button>
   <div id="results"></div>
@@ -37,31 +37,36 @@
   <script>
     const fixedGames = [
       [
-        [["Jonah", "Elene"], ["Ross", "Wyoma"]],
-        [["Dan", "Eddie"], ["Billy", "Caroline"]],
-        [["Asaf", "Pam"], ["Nick", "Hannah"]]
+        [["Man3", "Woman3"], ["Man2", "Woman2"]],
+        [["Man1", "Woman4"], ["Man6", "Woman6"]],
+        [["Man5", "Woman5"], ["Man4", "Woman1"]]
       ],
       [
-        [["Nick", "Pam"], ["Billy", "Hannah"]],
-        [["Jonah", "Wyoma"], ["Asaf", "Eddie"]],
-        [["Dan", "Elene"], ["Ross", "Caroline"]]
+        [["Man4", "Woman5"], ["Man6", "Woman1"]],
+        [["Man3", "Woman2"], ["Man5", "Woman4"]],
+        [["Man1", "Woman3"], ["Man2", "Woman6"]]
       ],
       [
-        [["Nick", "Wyoma"], ["Ross", "Hannah"]],
-        [["Jonah", "Caroline"], ["Asaf", "Elene"]],
-        [["Billy", "Eddie"], ["Dan", "Pam"]]
+        [["Man4", "Woman2"], ["Man2", "Woman1"]],
+        [["Man3", "Woman6"], ["Man5", "Woman3"]],
+        [["Man6", "Woman4"], ["Man1", "Woman5"]]
       ],
       [
-        [["Billy", "Pam"], ["Dan", "Hannah"]],
-        [["Jonah", "Eddie"], ["Nick", "Caroline"]],
-        [["Ross", "Elene"], ["Asaf", "Wyoma"]]
+        [["Man6", "Woman5"], ["Man1", "Woman1"]],
+        [["Man3", "Woman4"], ["Man4", "Woman6"]],
+        [["Man2", "Woman3"], ["Man5", "Woman2"]]
       ]
     ];
 
     function generateSchedule() {
       const players = {};
-      ["Dan","Ross","Jonah","Nick","Asaf","Billy","Hannah","Wyoma","Elene","Eddie","Pam","Caroline"].forEach(id => {
-        players[id] = document.getElementById(id).value || id;
+      const ids = [
+        "Man1", "Man2", "Man3", "Man4", "Man5", "Man6",
+        "Woman1", "Woman2", "Woman3", "Woman4", "Woman5", "Woman6"
+      ];
+      
+      ids.forEach(id => {
+        players[id] = document.getElementById(id).value || id.replace("Man", "Man ").replace("Woman", "Woman ");
       });
 
       const output = fixedGames.map((game, i) => {
