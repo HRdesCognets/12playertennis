@@ -2,81 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>12-Player Tennis Matchup Generator</title>
-<style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    padding: 40px;
-    background-color: #f7f9fc;
-    color: #333;
-  }
-
-  h2 {
-    color: #2c3e50;
-    margin-bottom: 0.5em;
-  }
-
-  p {
-    margin-top: 0;
-    color: #555;
-  }
-
-  input {
-    margin: 6px 8px 12px 0;
-    padding: 8px;
-    width: 140px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 0.95rem;
-    transition: box-shadow 0.3s ease;
-  }
-
-  input:focus {
-    box-shadow: 0 0 6px rgba(46, 204, 113, 0.4);
-    border-color: #2ecc71;
-    outline: none;
-  }
-
-  button {
-    background-color: #2ecc71;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 16px;
-  }
-
-  button:hover {
-    background-color: #27ae60;
-  }
-
-  .game {
-    background-color: white;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-  }
-
-  .game strong {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-    color: #2980b9;
-  }
-
-  .input-group {
-    margin-bottom: 20px;
-  }
-</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>12-Player Tennis Matchups</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f8fa; }
+    input { margin: 6px; padding: 6px; width: 130px; border-radius: 4px; border: 1px solid #ccc; }
+    .game { margin-top: 20px; padding: 12px; background: white; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    button { margin-top: 16px; padding: 10px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #2980b9; }
+  </style>
 </head>
 <body>
-  <h2>Optimized 12-Player Tennis Matchups</h2>
-  <p>Enter names for 6 men and 6 women (or leave as default):</p>
+  <h2>12-Player Fixed Tennis Matchups</h2>
+  <p>Customize names below (optional):</p>
   <div>
     <strong>Men:</strong><br/>
     <input id="Man1" placeholder="Man 1" />
@@ -99,38 +37,40 @@
   <div id="results"></div>
 
   <script>
+    // Final fixed schedule with placeholder IDs
     const fixedGames = [
       [
-        [["Man3", "Woman3"], ["Man2", "Woman2"]],
-        [["Man1", "Woman4"], ["Man6", "Woman6"]],
-        [["Man5", "Woman5"], ["Man4", "Woman1"]]
+        [["Man1", "Woman1"], ["Man2", "Woman6"]],
+        [["Man3", "Woman2"], ["Man4", "Woman3"]],
+        [["Man5", "Woman4"], ["Man6", "Woman5"]]
       ],
       [
-        [["Man4", "Woman5"], ["Man6", "Woman1"]],
-        [["Man3", "Woman2"], ["Man5", "Woman4"]],
-        [["Man1", "Woman3"], ["Man2", "Woman6"]]
+        [["Man1", "Woman2"], ["Man3", "Woman4"]],
+        [["Man5", "Woman1"], ["Man2", "Woman5"]],
+        [["Man4", "Woman6"], ["Man6", "Woman3"]]
       ],
       [
-        [["Man4", "Woman2"], ["Man2", "Woman1"]],
-        [["Man3", "Woman6"], ["Man5", "Woman3"]],
-        [["Man6", "Woman4"], ["Man1", "Woman5"]]
+        [["Man1", "Woman4"], ["Man4", "Woman5"]],
+        [["Man2", "Woman5"], ["Man6", "Woman6"]],
+        [["Man5", "Woman2"], ["Man3", "Woman1"]]
       ],
       [
-        [["Man6", "Woman5"], ["Man1", "Woman1"]],
-        [["Man3", "Woman4"], ["Man4", "Woman6"]],
-        [["Man2", "Woman3"], ["Man5", "Woman2"]]
+        [["Man1", "Woman3"], ["Man6", "Woman4"]],
+        [["Man4", "Woman2"], ["Man5", "Woman1"]],
+        [["Man2", "Woman1"], ["Man3", "Woman6"]]
       ]
     ];
 
     function generateSchedule() {
-      const players = {};
       const ids = [
-        "Man1", "Man2", "Man3", "Man4", "Man5", "Man6",
-        "Woman1", "Woman2", "Woman3", "Woman4", "Woman5", "Woman6"
+        "Man1","Man2","Man3","Man4","Man5","Man6",
+        "Woman1","Woman2","Woman3","Woman4","Woman5","Woman6"
       ];
-      
+      const players = {};
       ids.forEach(id => {
-        players[id] = document.getElementById(id).value || id.replace("Man", "Man ").replace("Woman", "Woman ");
+        // Use entered name, or fallback to placeholder text
+        const input = document.getElementById(id);
+        players[id] = input.value.trim() || input.placeholder;
       });
 
       const output = fixedGames.map((game, i) => {
